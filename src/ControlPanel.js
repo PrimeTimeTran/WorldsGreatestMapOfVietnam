@@ -86,8 +86,13 @@ export default class ControlPanel extends PureComponent {
 
     return (
       <Container>
-        <h3 className="header">Major Cities</h3>
-        <p>Click to Learn more</p>
+        <h3 className="header">
+          Major Cities <i class="fas fa-city" />
+        </h3>
+        <p>
+          Click to learn more <i class="fas fa-chalkboard" />
+        </p>
+
         <hr />
         {CITIES.filter(city => city.country === "Vietnam").map(
           this._renderButton

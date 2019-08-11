@@ -134,7 +134,7 @@ export default function App(props) {
             <div className="description-container">
               <span className="description-header">
                 <i className="fa fa-map icon" />
-                {hoveringProvince.Name} (2017)
+                {hoveringProvince.Name} (2017 <i class="fas fa-chart-line" />)
               </span>
               <hr />
               <br />
