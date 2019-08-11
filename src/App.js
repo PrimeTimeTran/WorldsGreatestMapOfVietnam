@@ -11,7 +11,7 @@ import "./App.css";
 
 import { route, provinces } from "./data";
 
-export default function App(props) {
+export default function App() {
   const map = useRef(null);
   const [hoveringProvince, setHoveringProvince] = useState(false);
 
@@ -54,7 +54,7 @@ export default function App(props) {
     }
   };
 
-  useEffect(() => {
+  const setupApp = () => {
     const newMap = map.current.getMap();
     newMap.on("load", () => {
       // All Provinces
@@ -131,6 +131,10 @@ export default function App(props) {
         }
       });
     });
+  };
+
+  useEffect(() => {
+    setupApp();
   }, []);
 
   const isHovering = hoveringProvince && hoveringProvince.mouseLat;
@@ -143,13 +147,12 @@ export default function App(props) {
         onHover={_onHover}
         onViewportChange={viewport => setViewport(viewport)}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle={"mapbox://styles/primetimetran/cjz496fui03pa1dseuakr3f8q"}
+        mapStyle={"mapbox://styles/primetimetran/cjz496fui03pa1dseuakr3f8q"} // Decimal
+        // mapStyle={"mapbox://styles/primetimetran/cjz7875ka1m121cr6q2mk4mra"} // Dark
+        // mapStyle={"mapbox://styles/primetimetran/cjz785g0d1lzj1cr60k3qzv1y"} // Google Maps
       >
         {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
-        <ControlPanel
-          onViewportChange={_goToViewport}
-          containerComponent={props.containerComponent}
-        />
+        <ControlPanel onViewportChange={_goToViewport} />
         <CurrentRoutePanel />
         <CurrentRouteMarkers />
       </ReactMapGL>
