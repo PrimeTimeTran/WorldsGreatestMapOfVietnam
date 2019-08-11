@@ -185,10 +185,12 @@ export default function App(props) {
       >
         {hovering && hoveringProvince && hoveringProvince.mouseLat && (
           <Marker
+            className="overlay"
             latitude={hoveringProvince.mouseLat}
             longitude={hoveringProvince.mouselong}
           >
             <div
+              className="overlay"
               style={{
                 width: 250,
                 padding: 10,
@@ -199,9 +201,12 @@ export default function App(props) {
               }}
             >
               <span style={{ fontWeight: "bold", fontSize: 25 }}>
+                <i className="fa fa-map icon" />
                 {hoveringProvince.Name}
               </span>
+              <hr />
               <br />
+              <i className="fa fa-group icon" />
               {(hoveringProvince.pop2017 * 1000)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -210,12 +215,13 @@ export default function App(props) {
         )}
         <div
           style={{
-            left: 0,
+            left: 10,
             zIndex: 1,
-            bottom: 0,
+            bottom: 10,
             width: 300,
             height: 200,
             padding: 20,
+            borderRadius: 10,
             position: "absolute",
             backgroundColor: "#4392F1"
           }}
@@ -227,12 +233,13 @@ export default function App(props) {
         </div>
         <div
           style={{
-            left: 0,
-            top: 0,
+            top: 10,
+            left: 10,
+            zIndex: 1,
             width: 300,
             height: 250,
-            zIndex: 1,
             padding: 20,
+            borderRadius: 10,
             position: "absolute",
             backgroundColor: "red"
           }}
@@ -270,7 +277,6 @@ export default function App(props) {
             </button>
           </Marker>
         ))}
-        }
       </ReactMapGL>
     </div>
   );
