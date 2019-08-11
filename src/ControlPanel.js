@@ -54,7 +54,6 @@ const defaultContainer = ({ children }) => (
 
 export default class ControlPanel extends PureComponent {
   componentDidMount() {
-    // Map over them 1 at a time
     CITIES.map((city, idx) => {
       setTimeout(() => {
         this.props.onViewportChange(city);
