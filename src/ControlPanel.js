@@ -66,7 +66,7 @@ export default class ControlPanel extends PureComponent {
 
   _renderButton = (city, index) => {
     return (
-      <div key={`btn-${index}`} className="input">
+      <div key={`btn-${index}`} className="input input-container">
         <input
           name="city"
           type="radio"
@@ -88,10 +88,9 @@ export default class ControlPanel extends PureComponent {
         <h3 className="header">
           Major Cities <i class="fas fa-city" />
         </h3>
-        <p>
-          Click to learn more <i class="fas fa-chalkboard" />
-        </p>
-
+          <p>
+            Click to learn more <i className="fas fa-chalkboard" />
+          </p>
         <hr />
         {CITIES.filter(city => city.country === "Vietnam").map(
           this._renderButton

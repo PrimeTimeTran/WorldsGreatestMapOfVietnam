@@ -24,7 +24,8 @@ h3,
   color: white;
   font-size: 10px;
   border-radius: 1em;
-  background-color: rgba(52, 52, 52, 0.8);
+  border: 1px solid white;
+  background-color: rgba(20, 20, 20, 0.8);
 }
 
 .description-header {
@@ -41,7 +42,8 @@ h3,
   padding: 1em;
   border-radius: 1em;
   position: absolute;
-  background-color: rgba(52, 52, 52, 0.8);
+  border: 1px solid white;
+  background-color: rgba(20, 20, 20, 0.8);
 }
 
 .points-of-interest-container {
@@ -53,7 +55,8 @@ h3,
   padding: 1em;
   border-radius: 1em;
   position: absolute;
-  background-color: #4392f1;
+  border: 1px solid white;
+  background-color: rgba(20, 20, 20, 0.8);
 }
 
 h5 {
@@ -74,9 +77,12 @@ hr {
   margin: 0.2em;
   padding: 0.5em;
   border-radius: 1em;
-  background-color: rgba(0, 100, 148, 0.8);
+  /* background-color: rgba(0, 100, 148, 0.8); */
 }
 
 i {
   color: #dc493a;
+}
+.input-container {
+  margin: 0.5em;
 }

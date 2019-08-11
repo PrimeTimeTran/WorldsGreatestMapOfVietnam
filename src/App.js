@@ -33,13 +33,13 @@ export default function App(props) {
   const _onHover = event => {
     const { features } = event;
 
-    if (
-      features &&
+    const isHoveringProvince = features &&
       features.length > 0 &&
       features[0].properties.hasOwnProperty("Name") &&
       event.lngLat[0] &&
       event.lngLat[1]
-    ) {
+
+    if (isHoveringProvince) {
       setHovering(true);
       setHoveringProvince({
         ...features[0].properties,
@@ -86,6 +86,22 @@ export default function App(props) {
         paint: {
           "line-color": "#FFFFFF",
           "line-width": 2
+        }
+      });
+
+      newMap.addLayer({
+        id: "province-fills",
+        type: "fill",
+        source: "provinces",
+        layout: {},
+        paint: {
+          "fill-color": "#627BC1",
+          "fill-opacity": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            1,
+            0.5
+          ]
         }
       });
 
