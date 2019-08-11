@@ -9,7 +9,7 @@ import ControlPanel from "./ControlPanel";
 import "./App.css";
 
 // Generated using from googlge api
-// https://maps.googleapis.com/maps/api/directions/json?origin=10.764570,106.697000&destination=10.762047,106.7075268&key=AIzaSyAoRQzDCdlCdi_vjImbRTKu_LX5sg8Zzs0
+// https://maps.googleapis.com/maps/api/directions/json?origin=10.764570,106.697000&destination=10.762047,106.7075268
 let route = require("./data/schoolroute.json");
 const directions = route.routes[0].legs[0];
 const points = Polyline.decode(route.routes[0].overview_polyline.points);
