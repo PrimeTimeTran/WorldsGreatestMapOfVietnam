@@ -4,7 +4,7 @@ Video available at: https://youtu.be/Sw3NjxCLvFM
 
 ##
 
-[Demo](https://blissful-lichterman-2de547.netlify.com)
+[Demo](https://worldsgreatestmapofvietnam.netlify.com)
 
 ![intro](./intro.gif)
 
