@@ -1,69 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
-import Polyline from "@mapbox/polyline";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import ControlPanel from "./ControlPanel";
 
 import "./App.css";
-
-// Generated using from googlge api
-// https://maps.googleapis.com/maps/api/directions/json?origin=10.764570,106.697000&destination=10.762047,106.7075268
-let route = require("./data/schoolroute.json");
-const directions = route.routes[0].legs[0];
-const points = Polyline.decode(route.routes[0].overview_polyline.points);
-route = points.map(point => [point[1], point[0]]);
-
-const tripData = {
-  start: directions.start_address,
-  end: directions.end_address,
-  time: directions.duration.text,
-  distance: directions.distance.text,
-  endLat: directions.end_location.lat,
-  endLng: directions.end_location.lng
-};
-
-let populationData = require("./csvjson.json");
-populationData = populationData.map(pop => {
-  return {
-    ...pop,
-    lat: parseFloat(pop.coords.split(", ")[0].split("° ")[0]),
-    long: parseFloat(pop.coords.split(", ")[1].split("° ")[0])
-  };
-});
-
-// Generated using http://opendata.hcmgis.vn/layers/geonode%3Avietnam_provinces
-let provinces = require("./data/provinces.json");
-
-provinces.features = provinces.features.map((province, idx) => {
-  if (province.properties.Name.includes("Province")) {
-    const foundPop = populationData.find(pop =>
-      province.properties.Name.includes(pop.Name)
-    );
-    return {
-      ...province,
-      properties: {
-        id: idx + 1,
-        ...province.properties,
-        ...foundPop
-      }
-    };
-  }
-
-  const foundPop = populationData.find(pop =>
-    province.properties.Name.includes(pop.Name)
-  );
-
-  return {
-    ...province,
-    properties: {
-      id: idx + 1,
-      ...province.properties,
-      ...foundPop
-    }
-  };
-});
+import { tripData, route, provinces } from "./data";
 
 export default function App(props) {
   const map = useRef(null);
@@ -83,7 +25,7 @@ export default function App(props) {
       zoom: 13,
       latitude,
       longitude,
-      transitionDuration: 60000,
+      transitionDuration: 20000,
       transitionInterpolator: new FlyToInterpolator()
     });
   };
@@ -147,7 +89,7 @@ export default function App(props) {
         }
       });
 
-      // Route to school
+      // Route to destination
       newMap.addLayer({
         id: "route",
         type: "line",
@@ -166,7 +108,7 @@ export default function App(props) {
           "line-cap": "round"
         },
         paint: {
-          "line-color": "#FFFFFF",
+          "line-color": "red",
           "line-width": 4
         }
       });
@@ -185,24 +127,14 @@ export default function App(props) {
       >
         {hovering && hoveringProvince && hoveringProvince.mouseLat && (
           <Marker
-            className="overlay"
+            className="marker"
             latitude={hoveringProvince.mouseLat}
             longitude={hoveringProvince.mouselong}
           >
-            <div
-              className="overlay"
-              style={{
-                width: 250,
-                padding: 10,
-                height: 100,
-                color: "white",
-                borderRadius: 20,
-                backgroundColor: "rgba(52, 52, 52, 0.8)"
-              }}
-            >
+            <div className="description-container">
               <span style={{ fontWeight: "bold", fontSize: 25 }}>
                 <i className="fa fa-map icon" />
-                {hoveringProvince.Name}
+                {hoveringProvince.Name} (2017)
               </span>
               <hr />
               <br />
@@ -213,37 +145,13 @@ export default function App(props) {
             </div>
           </Marker>
         )}
-        <div
-          style={{
-            left: 10,
-            zIndex: 1,
-            bottom: 10,
-            width: 300,
-            height: 200,
-            padding: 20,
-            borderRadius: 10,
-            position: "absolute",
-            backgroundColor: "#4392F1"
-          }}
-        >
+        <div className="points-of-interest-container">
           <ControlPanel
             onViewportChange={_goToViewport}
             containerComponent={props.containerComponent}
           />
         </div>
-        <div
-          style={{
-            top: 10,
-            left: 10,
-            zIndex: 1,
-            width: 300,
-            height: 250,
-            padding: 20,
-            borderRadius: 10,
-            position: "absolute",
-            backgroundColor: "red"
-          }}
-        >
+        <div className="directions-container">
           <h3>Current Trip:</h3>
           <hr />
           <h5>Start: {tripData.start}</h5>
@@ -251,20 +159,6 @@ export default function App(props) {
           <h5>Time: {tripData.time}</h5>
           <h5>Distance: {tripData.distance}</h5>
         </div>
-        {/* {populationData.map(pop => {
-          return (
-            <Marker latitude={pop.lat} longitude={pop.long}>
-              <button
-                className="marker-btn"
-                onClick={e => {
-                  e.preventDefault();
-                }}
-              >
-                <img src="/skateboarding.svg" alt="Skate Park Icon" />
-              </button>
-            </Marker>
-          );
-        })} */}
         {route.map(point => (
           <Marker latitude={point[1]} longitude={point[0]}>
             <button

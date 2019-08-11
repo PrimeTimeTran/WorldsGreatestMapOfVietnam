@@ -62,7 +62,7 @@ export default class ControlPanel extends PureComponent {
 
     setTimeout(() => {
       this.props.onViewportChange({ latitude: 10.4114, longitude: 107.1362 });
-    });
+    }, 5000);
   }
 
   _renderButton = (city, index) => {

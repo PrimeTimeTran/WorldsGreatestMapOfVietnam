@@ -1,11 +1,48 @@
-.input, .header, p, h5, h3 {
-    color: white;
+.input,
+.header,
+p,
+h5,
+h3 {
+  color: white;
 }
 
-.overlay {
-    z-index: 1;
+.marker {
+  z-index: 1;
 }
 
 .icon {
-    margin-right: 10px;
+  margin-right: 1em;
+}
+
+.description-container {
+  width: 20em;
+  padding: 2em;
+  height: 10em;
+  color: white;
+  border-radius: 1em;
+  background-color: rgba(52, 52, 52, 0.8);
+}
+
+.directions-container {
+    top: 1em;
+    left: 1em;
+    z-index: 1;
+    width: 20em;
+    height: 15em;
+    padding: 1em;
+    border-radius: 1em;
+    position: absolute;
+    background-color: red;
+  }
+
+.points-of-interest-container {
+  left: 1em;
+  z-index: 1;
+  bottom: 1em;
+  width: 20em;
+  height: 15em;
+  padding: 1em;
+  border-radius: 1em;
+  position: absolute;
+  background-color: #4392f1;
 }
