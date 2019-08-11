@@ -4,7 +4,9 @@ import Polyline from "@mapbox/polyline";
 let route = require("./schoolroute.json");
 const directions = route.routes[0].legs[0];
 const points = Polyline.decode(route.routes[0].overview_polyline.points);
-route = points.map(point => [point[1], point[0]]);
+route = points.map(point => {
+  return [point[1], point[0]];
+});
 
 const tripData = {
   start: directions.start_address,

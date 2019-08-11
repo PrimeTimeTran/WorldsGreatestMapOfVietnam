@@ -1,8 +1,8 @@
-.input,
-.header,
 p,
 h5,
-h3 {
+h3,
+.input,
+.header {
   color: white;
 }
 
@@ -15,25 +15,31 @@ h3 {
 }
 
 .description-container {
-  width: 20em;
+  width: 24em;
   padding: 2em;
   height: 10em;
   color: white;
+  font-size: 10px;
   border-radius: 1em;
   background-color: rgba(52, 52, 52, 0.8);
 }
 
+.description-header {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 .directions-container {
-    top: 1em;
-    left: 1em;
-    z-index: 1;
-    width: 20em;
-    height: 15em;
-    padding: 1em;
-    border-radius: 1em;
-    position: absolute;
-    background-color: red;
-  }
+  top: 1em;
+  left: 1em;
+  z-index: 1;
+  width: 20em;
+  height: 27em;
+  padding: 1em;
+  border-radius: 1em;
+  position: absolute;
+  background-color: rgba(52, 52, 52, 0.8);
+}
 
 .points-of-interest-container {
   left: 1em;
@@ -45,4 +51,29 @@ h3 {
   border-radius: 1em;
   position: absolute;
   background-color: #4392f1;
+}
+
+h5 {
+  margin: 0px;
+  font-size: 1em;
+}
+p {
+  font-size: 0.9em;
+}
+
+hr {
+  height: 1px;
+  border: none;
+  background-color: #dc493a;
+}
+
+.card-field {
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 1em;
+  background-color: rgba(0, 100, 148, 0.8);
+}
+
+i {
+  color: #dc493a;
 }

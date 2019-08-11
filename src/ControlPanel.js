@@ -54,15 +54,15 @@ const defaultContainer = ({ children }) => (
 
 export default class ControlPanel extends PureComponent {
   componentDidMount() {
-    // CITIES.map((city, idx) => {
-    //   setTimeout(() => {
-    //     this.props.onViewportChange(city);
-    //   }, 5000 * idx);
-    // });
-
-    setTimeout(() => {
-      this.props.onViewportChange({ latitude: 10.4114, longitude: 107.1362 });
-    }, 5000);
+    // Map over them 1 at a time
+    CITIES.map((city, idx) => {
+      setTimeout(() => {
+        this.props.onViewportChange(city);
+      }, 25000 * idx);
+    });
+    // setTimeout(() => {
+    //   this.props.onViewportChange({ latitude: 10.4114, longitude: 107.1362 });
+    // }, 5000);
   }
 
   _renderButton = (city, index) => {

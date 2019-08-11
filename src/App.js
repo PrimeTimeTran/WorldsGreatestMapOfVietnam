@@ -132,7 +132,7 @@ export default function App(props) {
             longitude={hoveringProvince.mouselong}
           >
             <div className="description-container">
-              <span style={{ fontWeight: "bold", fontSize: 25 }}>
+              <span className="description-header">
                 <i className="fa fa-map icon" />
                 {hoveringProvince.Name} (2017)
               </span>
@@ -152,25 +152,54 @@ export default function App(props) {
           />
         </div>
         <div className="directions-container">
-          <h3>Current Trip:</h3>
+          <h5>
+            Current Trip <i className="fa fa-compass" />
+          </h5>
           <hr />
-          <h5>Start: {tripData.start}</h5>
-          <h5>End: {tripData.end}</h5>
-          <h5>Time: {tripData.time}</h5>
-          <h5>Distance: {tripData.distance}</h5>
+          <div className="card-field">
+            <h5>
+              Start <i className="fa fa-map-pin" />
+            </h5>
+            <hr />
+            <p>{tripData.start}</p>
+          </div>
+          <div className="card-field">
+            <h5>
+              End <i className="fa fa-map-pin" />
+            </h5>
+            <hr />
+            <p>{tripData.end}</p>
+          </div>
+          <div className="card-field">
+            <h5>
+              Time <i className="fa fa-clock-o" />
+            </h5>
+            <hr />
+            <p>{tripData.time}</p>
+          </div>
+          <div className="card-field">
+            <h5>
+              Distance <i className="fa fa-location-arrow" />
+            </h5>
+            <hr />
+            <p>{tripData.distance}</p>
+          </div>
         </div>
-        {route.map(point => (
-          <Marker latitude={point[1]} longitude={point[0]}>
-            <button
-              className="marker-btn"
-              onClick={e => {
-                e.preventDefault();
-              }}
-            >
-              <img src="/skateboarding.svg" alt="Skate Park Icon" />
-            </button>
-          </Marker>
-        ))}
+        {route.map(point => {
+          return (
+            <Marker latitude={point[1]} longitude={point[0]}>
+              <button
+                className="marker-btn"
+                onClick={e => {
+                  console.log("e");
+                  e.preventDefault();
+                }}
+              >
+                <img src="/skateboarding.svg" alt="Skate Park Icon" />
+              </button>
+            </Marker>
+          );
+        })}
       </ReactMapGL>
     </div>
   );
