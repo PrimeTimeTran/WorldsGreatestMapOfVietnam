@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
+import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import ControlPanel from "./ControlPanel";
+import ControlPanel from "./components/ControlPanel";
+import ProvinceCallout from "./components/ProvinceCallout";
+import CurrentRoutePanel from "./components/CurrentRoutePanel";
+import CurrentRouteMarkers from "./components/CurrentRouteMarkers";
 
 import "./App.css";
-import { tripData, route, provinces } from "./data";
+
+import { route, provinces } from "./data";
 
 export default function App(props) {
   const map = useRef(null);
-  const [hovering, setHovering] = useState(false);
   const [hoveringProvince, setHoveringProvince] = useState(false);
 
   const [viewport, setViewport] = useState({
@@ -33,21 +36,20 @@ export default function App(props) {
   const _onHover = event => {
     const { features } = event;
 
-    const isHoveringProvince = features &&
+    const isHoveringProvince =
+      features &&
       features.length > 0 &&
       features[0].properties.hasOwnProperty("Name") &&
       event.lngLat[0] &&
-      event.lngLat[1]
+      event.lngLat[1];
 
     if (isHoveringProvince) {
-      setHovering(true);
       setHoveringProvince({
         ...features[0].properties,
         mouseLat: event.lngLat[1] - 0.0009,
         mouselong: event.lngLat[0] + 0.0009
       });
     } else {
-      setHovering(false);
       setHoveringProvince(null);
     }
   };
@@ -131,8 +133,10 @@ export default function App(props) {
     });
   }, []);
 
+  const isHovering = hoveringProvince && hoveringProvince.mouseLat;
+
   return (
-    <div>
+    <>
       <ReactMapGL
         ref={map}
         {...viewport}
@@ -141,82 +145,14 @@ export default function App(props) {
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle={"mapbox://styles/primetimetran/cjz496fui03pa1dseuakr3f8q"}
       >
-        {hovering && hoveringProvince && hoveringProvince.mouseLat && (
-          <Marker
-            className="marker"
-            latitude={hoveringProvince.mouseLat}
-            longitude={hoveringProvince.mouselong}
-          >
-            <div className="description-container">
-              <span className="description-header">
-                <i className="fa fa-map icon" />
-                {hoveringProvince.Name} (2017 <i class="fas fa-chart-line" />)
-              </span>
-              <hr />
-              <br />
-              <i className="fa fa-group icon" />
-              {(hoveringProvince.pop2017 * 1000)
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </div>
-          </Marker>
-        )}
-        <div className="points-of-interest-container">
-          <ControlPanel
-            onViewportChange={_goToViewport}
-            containerComponent={props.containerComponent}
-          />
-        </div>
-        <div className="directions-container">
-          <h5>
-            Current Trip <i className="fa fa-compass" />
-          </h5>
-          <hr />
-          <div className="card-field">
-            <h5>
-              Start <i className="fa fa-map-pin" />
-            </h5>
-            <hr />
-            <p>{tripData.start}</p>
-          </div>
-          <div className="card-field">
-            <h5>
-              End <i className="fa fa-map-pin" />
-            </h5>
-            <hr />
-            <p>{tripData.end}</p>
-          </div>
-          <div className="card-field">
-            <h5>
-              Time <i className="fa fa-clock-o" />
-            </h5>
-            <hr />
-            <p>{tripData.time}</p>
-          </div>
-          <div className="card-field">
-            <h5>
-              Distance <i className="fa fa-location-arrow" />
-            </h5>
-            <hr />
-            <p>{tripData.distance}</p>
-          </div>
-        </div>
-        {route.map(point => {
-          return (
-            <Marker latitude={point[1]} longitude={point[0]}>
-              <button
-                className="marker-btn"
-                onClick={e => {
-                  console.log("e");
-                  e.preventDefault();
-                }}
-              >
-                <img src="/skateboarding.svg" alt="Skate Park Icon" />
-              </button>
-            </Marker>
-          );
-        })}
+        {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
+        <ControlPanel
+          onViewportChange={_goToViewport}
+          containerComponent={props.containerComponent}
+        />
+        <CurrentRoutePanel />
+        <CurrentRouteMarkers />
       </ReactMapGL>
-    </div>
+    </>
   );
 }

@@ -84,18 +84,20 @@ export default class ControlPanel extends PureComponent {
     const Container = this.props.containerComponent || defaultContainer;
 
     return (
-      <Container>
-        <h3 className="header">
-          Major Cities <i class="fas fa-city" />
-        </h3>
+      <div className="points-of-interest-container">
+        <Container>
+          <h3 className="header">
+            Major Cities <i class="fas fa-city" />
+          </h3>
           <p>
             Click to learn more <i className="fas fa-chalkboard" />
           </p>
-        <hr />
-        {CITIES.filter(city => city.country === "Vietnam").map(
-          this._renderButton
-        )}
-      </Container>
+          <hr />
+          {CITIES.filter(city => city.country === "Vietnam").map(
+            this._renderButton
+          )}
+        </Container>
+      </div>
     );
   }
 }
