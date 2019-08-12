@@ -91,6 +91,7 @@ export default function App() {
         }
       });
 
+      // Example of red box to test adding GEOJSON file
       // newMap.addSource("slsls", {
       //   type: "geojson",
       //   data: dummyData
@@ -150,9 +151,11 @@ export default function App() {
 
   const getDirections = async (startLocation, endLocation) => {
     fetch(
-      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?key=AIzaSyCIVfRN6v7V0E0-qW3jb-kjG7ky76aPU04&origin=${
-        startLocation.lat
-      },${startLocation.lng}&destination=${endLocation.lat},${endLocation.lng}`,
+      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?key=${
+        process.env.REACT_APP_GOOGLE_API_KEY
+      }&origin=${startLocation.lat},${startLocation.lng}&destination=${
+        endLocation.lat
+      },${endLocation.lng}`,
       {
         method: "GET", // *GET, POST, PUT, DELETE, etc.
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -160,7 +163,6 @@ export default function App() {
         headers: {
           "Content-Type": "application/json",
           Origin: "Loi is a dumbass"
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         redirect: "follow", // manual, *follow, error
         referrer: "no-referrer" // no-referrer, *client
@@ -170,7 +172,6 @@ export default function App() {
         return res.json();
       })
       .then(jsonData => {
-        console.log("lalalal", jsonData);
         setRoute(jsonData);
       });
   };
@@ -180,8 +181,9 @@ export default function App() {
     let endLocation;
 
     let response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCIVfRN6v7V0E0-qW3jb-kjG7ky76aPU04&address=${start}`
-      // `https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCIVfRN6v7V0E0-qW3jb-kjG7ky76aPU04&address=HCMC,Vietnam`
+      `https://maps.googleapis.com/maps/api/geocode/json?key=${
+        process.env.REACT_APP_GOOGLE_API_KEY
+      }&address=${start}`
     );
     let jsonData = await response.json();
     if (jsonData.results && jsonData.results.length > 0) {
@@ -190,13 +192,13 @@ export default function App() {
         lat: jsonData.results[0].geometry.location.lat,
         lng: jsonData.results[0].geometry.location.lng
       };
-      console.log("startLocation", startLocation);
       setStart(startLocation);
     }
 
     response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCIVfRN6v7V0E0-qW3jb-kjG7ky76aPU04&address=${end}`
-      // `https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyCIVfRN6v7V0E0-qW3jb-kjG7ky76aPU04&address=NhaTrang,Vietnam`
+      `https://maps.googleapis.com/maps/api/geocode/json?key=${
+        process.env.REACT_APP_GOOGLE_API_KEY
+      }&address=${end}`
     );
     jsonData = await response.json();
     if (jsonData.results && jsonData.results.length > 0) {
@@ -205,7 +207,6 @@ export default function App() {
         lat: jsonData.results[0].geometry.location.lat,
         lng: jsonData.results[0].geometry.location.lng
       };
-      console.log("endLocation", endLocation);
       setEnd(endLocation);
     }
     getDirections(startLocation, endLocation);
