@@ -58,4 +58,6 @@ provinces.features = provinces.features.map((province, idx) => {
   };
 });
 
-export { tripData, route, provinces, populationData };
+const dummyData = require("./box.geojson");
+
+export { tripData, route, provinces, populationData, dummyData };
