@@ -86,3 +86,14 @@ i {
 .input-container {
   margin: 0.5em;
 }
+
+.route-input {
+  width: 90%;
+  height: 2.5em;
+  font-size: 1em;
+  border-radius: 0.5em;
+}
+
+input::placeholder {
+  font-size: 1em;
+}

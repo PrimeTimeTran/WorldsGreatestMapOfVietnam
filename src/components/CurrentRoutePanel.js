@@ -23,6 +23,8 @@ export default class CurrentRoutePanel extends Component {
             Start <i className="fa fa-map-pin" />
           </h5>
           <input
+            className="route-input"
+            placeholder="HCMC, Vietnam"
             ref={input => {
               this.nameInput = input;
             }}
@@ -35,7 +37,11 @@ export default class CurrentRoutePanel extends Component {
           <h5>
             End <i className="fa fa-map-pin" />
           </h5>
-          <input onChange={e => this.setState({ end: e.target.value })} />
+          <input
+            className="route-input"
+            placeholder="Nha Trang, Vietnam"
+            onChange={e => this.setState({ end: e.target.value })}
+          />
           <hr />
           <p>{tripData.end}</p>
         </div>
