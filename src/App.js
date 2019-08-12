@@ -28,11 +28,11 @@ export default function App() {
   useInterval(() => setRouteCount(routeCount + 1), 1000);
 
   const [viewport, setViewport] = useState({
-    zoom: 13,
+    zoom: 5,
     width: "100vw",
     height: "100vh",
-    latitude: 10.7696661,
-    longitude: 106.6991565
+    latitude: 15.7477194,
+    longitude: 101.4132682
   });
 
   const setupApp = () => {
