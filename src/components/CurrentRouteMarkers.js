@@ -8,7 +8,9 @@ export default class CurrentRouteMarkers extends Component {
   render() {
     return (
       <div>
-        {route.map(point => {
+        {route.map((point, idx) => {
+          console.log("this.props.routeCount", this.props.routeCount);
+          if (!(this.props.routeCount * 3 > idx)) return;
           return (
             <Marker latitude={point[1]} longitude={point[0]}>
               <button

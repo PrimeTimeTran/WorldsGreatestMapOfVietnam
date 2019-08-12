@@ -10,10 +10,14 @@ import CurrentRouteMarkers from "./components/CurrentRouteMarkers";
 import "./App.css";
 
 import { route, provinces } from "./data";
+import { useInterval } from "./utils";
 
 export default function App() {
   const map = useRef(null);
   const [hoveringProvince, setHoveringProvince] = useState(false);
+  const [routeCount, setRouteCount] = useState(0);
+
+  useInterval(() => setRouteCount(routeCount + 1), 1000);
 
   const [viewport, setViewport] = useState({
     zoom: 13,
@@ -28,7 +32,7 @@ export default function App() {
       zoom: 13,
       latitude,
       longitude,
-      transitionDuration: 20000,
+      transitionDuration: 90000,
       transitionInterpolator: new FlyToInterpolator()
     });
   };
@@ -91,22 +95,6 @@ export default function App() {
         }
       });
 
-      newMap.addLayer({
-        id: "province-fills",
-        type: "fill",
-        source: "provinces",
-        layout: {},
-        paint: {
-          "fill-color": "#627BC1",
-          "fill-opacity": [
-            "case",
-            ["boolean", ["feature-state", "hover"], false],
-            1,
-            0.5
-          ]
-        }
-      });
-
       // Route to destination
       newMap.addLayer({
         id: "route",
@@ -154,7 +142,7 @@ export default function App() {
         {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
         <ControlPanel onViewportChange={_goToViewport} />
         <CurrentRoutePanel />
-        <CurrentRouteMarkers />
+        <CurrentRouteMarkers routeCount={routeCount} />
       </ReactMapGL>
     </>
   );

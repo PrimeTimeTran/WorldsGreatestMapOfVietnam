@@ -54,14 +54,14 @@ const defaultContainer = ({ children }) => (
 
 export default class ControlPanel extends PureComponent {
   componentDidMount() {
-    CITIES.map((city, idx) => {
-      setTimeout(() => {
-        this.props.onViewportChange(city);
-      }, 25000 * idx);
-    });
-    // setTimeout(() => {
-    //   this.props.onViewportChange({ latitude: 10.4114, longitude: 107.1362 });
-    // }, 5000);
+    // CITIES.map((city, idx) => {
+    //   setTimeout(() => {
+    //     this.props.onViewportChange(city);
+    //   }, 25000 * idx);
+    // });
+    setTimeout(() => {
+      this.props.onViewportChange({ latitude: 10.4114, longitude: 107.1362 });
+    }, 5000);
   }
 
   _renderButton = (city, index) => {
@@ -87,7 +87,7 @@ export default class ControlPanel extends PureComponent {
       <div className="points-of-interest-container">
         <Container>
           <h3 className="header">
-            Major Cities <i class="fas fa-city" />
+            Major Cities <i className="fas fa-city" />
           </h3>
           <p>
             Click to learn more <i className="fas fa-chalkboard" />
