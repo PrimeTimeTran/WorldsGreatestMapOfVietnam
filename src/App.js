@@ -20,6 +20,7 @@ export default function App() {
   const [routeCount, setRouteCount] = useState(0);
   const [start, setStart] = useState({});
   const [end, setEnd] = useState({});
+  const [currentRouteData, setCurrentRouteData] = useState({});
   const [route, setRoute] = useState({});
 
   useInterval(() => setRouteCount(routeCount + 1), 1000);
@@ -173,6 +174,7 @@ export default function App() {
     const jsonData = await response.json();
 
     const route = jsonData.routes[0].legs[0];
+    setCurrentRouteData(route);
 
     setRoute(jsonData);
     _goToViewport(
@@ -225,14 +227,18 @@ export default function App() {
         onHover={_onHover}
         onViewportChange={setViewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        mapStyle={"mapbox://styles/primetimetran/cjz496fui03pa1dseuakr3f8q"} // Decimal
-        // mapStyle={"mapbox://styles/primetimetran/cjz7875ka1m121cr6q2mk4mra"} // Dark
-        // mapStyle={"mapbox://styles/primetimetran/cjz785g0d1lzj1cr60k3qzv1y"} // Google Maps
+        mapStyle={"mapbox://styles/primetimetran/cjz496fui03pa1dseuakr3f8q"}
       >
         {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
 
-        <CurrentRoutePanel onSearchRoute={onSearchRoute}>
-          <ControlPanel onViewportChange={_goToViewport} />
+        <CurrentRoutePanel
+          onSearchRoute={onSearchRoute}
+          currentRouteData={currentRouteData}
+        >
+          <ControlPanel
+            onViewportChange={_goToViewport}
+            currentRouteData={currentRouteData}
+          />
         </CurrentRoutePanel>
         <CurrentRouteMarkers routeCount={routeCount} route={route} />
       </ReactMapGL>

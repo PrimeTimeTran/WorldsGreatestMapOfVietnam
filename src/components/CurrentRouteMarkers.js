@@ -8,7 +8,7 @@ import { route as defaultRoute } from "../data";
 export default class CurrentRouteMarkers extends Component {
   render() {
     let route = null;
-    if (this.props.route.routes != undefined) {
+    if (this.props.route.routes !== undefined) {
       const points = Polyline.decode(
         this.props.route.routes[0].overview_polyline.points
       );

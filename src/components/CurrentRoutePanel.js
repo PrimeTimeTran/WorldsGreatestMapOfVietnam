@@ -16,6 +16,13 @@ export default class CurrentRoutePanel extends Component {
     }
   };
   render() {
+    const {
+      duration = {},
+      distance = {},
+      end_address = "",
+      start_address = ""
+    } = this.props.currentRouteData;
+
     return (
       <div className="directions-container">
         <h5>
@@ -37,7 +44,7 @@ export default class CurrentRoutePanel extends Component {
             }}
           />
           <hr />
-          <p>{tripData.start}</p>
+          <p>{start_address || tripData.start}</p>
         </div>
         <div className="card-field">
           <h5>
@@ -49,12 +56,11 @@ export default class CurrentRoutePanel extends Component {
             placeholder="Nha Trang, Vietnam"
             onKeyDown={this.keyPress}
             onChange={e => {
-              console.log("e", e);
               this.setState({ end: e.target.value });
             }}
           />
           <hr />
-          <p>{tripData.end}</p>
+          <p>{end_address || tripData.end}</p>
         </div>
         <button
           onClick={() =>
@@ -68,14 +74,14 @@ export default class CurrentRoutePanel extends Component {
             Time <i className="fa fa-clock-o" />
           </h5>
           <hr />
-          <p>{tripData.time}</p>
+          <p>{duration.text || tripData.time}</p>
         </div>
         <div className="card-field">
           <h5>
             Distance <i className="fa fa-location-arrow" />
           </h5>
           <hr />
-          <p>{tripData.distance}</p>
+          <p>{distance.text || tripData.distance}</p>
         </div>
         {this.props.children}
       </div>
