@@ -12,6 +12,8 @@ import "./App.css";
 import { route, provinces, dummyData } from "./data";
 import { useInterval } from "./utils";
 
+const apiKey = `key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+
 export default function App() {
   const map = useRef(null);
   const [hoveringProvince, setHoveringProvince] = useState(false);
@@ -150,30 +152,36 @@ export default function App() {
   };
 
   const getDirections = async (startLocation, endLocation) => {
-    fetch(
-      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?key=${
-        process.env.REACT_APP_GOOGLE_API_KEY
-      }&origin=${startLocation.lat},${startLocation.lng}&destination=${
-        endLocation.lat
-      },${endLocation.lng}`,
-      {
-        method: "GET", // *GET, POST, PUT, DELETE, etc.
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json",
-          Origin: "Loi is a dumbass"
-        },
-        redirect: "follow", // manual, *follow, error
-        referrer: "no-referrer" // no-referrer, *client
+    const config = {
+      method: "GET",
+      cache: "no-cache",
+      redirect: "follow",
+      referrer: "no-referrer",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "Thanks Charles. #CoderSchool_FTW"
       }
-    )
-      .then(res => {
-        return res.json();
-      })
-      .then(jsonData => {
-        setRoute(jsonData);
-      });
+    };
+
+    const origin = `&origin=${startLocation.lat},${startLocation.lng}`;
+    const destination = `&destination=${endLocation.lat},${endLocation.lng}`;
+
+    const url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/directions/json?${apiKey}${origin}${destination}`;
+
+    const response = await fetch(url, config);
+    const jsonData = await response.json();
+
+    const route = jsonData.routes[0].legs[0];
+
+    setRoute(jsonData);
+    _goToViewport(
+      {
+        latitude: route.end_location.lat,
+        longitude: route.end_location.lng
+      },
+      35000
+    );
   };
 
   const onSearchRoute = async (start, end) => {
@@ -181,9 +189,7 @@ export default function App() {
     let endLocation;
 
     let response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?key=${
-        process.env.REACT_APP_GOOGLE_API_KEY
-      }&address=${start}`
+      `https://maps.googleapis.com/maps/api/geocode/json?${apiKey}&address=${start}`
     );
     let jsonData = await response.json();
     if (jsonData.results && jsonData.results.length > 0) {
@@ -196,9 +202,7 @@ export default function App() {
     }
 
     response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?key=${
-        process.env.REACT_APP_GOOGLE_API_KEY
-      }&address=${end}`
+      `https://maps.googleapis.com/maps/api/geocode/json?${apiKey}&address=${end}`
     );
     jsonData = await response.json();
     if (jsonData.results && jsonData.results.length > 0) {
@@ -226,8 +230,10 @@ export default function App() {
         // mapStyle={"mapbox://styles/primetimetran/cjz785g0d1lzj1cr60k3qzv1y"} // Google Maps
       >
         {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
-        <ControlPanel onViewportChange={_goToViewport} />
-        <CurrentRoutePanel onSearchRoute={onSearchRoute} />
+
+        <CurrentRoutePanel onSearchRoute={onSearchRoute}>
+          <ControlPanel onViewportChange={_goToViewport} />
+        </CurrentRoutePanel>
         <CurrentRouteMarkers routeCount={routeCount} route={route} />
       </ReactMapGL>
     </>

@@ -4,12 +4,17 @@ import { tripData } from "../data";
 
 export default class CurrentRoutePanel extends Component {
   state = {
-    start: "",
-    end: ""
+    start: "HCMC, Vietnam",
+    end: "Nha Trang, Vietnam"
   };
   componentDidMount() {
     this.nameInput.focus();
   }
+  keyPress = e => {
+    if (e.keyCode === 13) {
+      this.props.onSearchRoute(this.state.start, this.state.end);
+    }
+  };
   render() {
     return (
       <div className="directions-container">
@@ -25,10 +30,11 @@ export default class CurrentRoutePanel extends Component {
           <input
             className="route-input"
             placeholder="HCMC, Vietnam"
+            value={this.state.start}
+            onChange={e => this.setState({ start: e.target.value })}
             ref={input => {
               this.nameInput = input;
             }}
-            onChange={e => this.setState({ start: e.target.value })}
           />
           <hr />
           <p>{tripData.start}</p>
@@ -39,8 +45,13 @@ export default class CurrentRoutePanel extends Component {
           </h5>
           <input
             className="route-input"
+            value={this.state.end}
             placeholder="Nha Trang, Vietnam"
-            onChange={e => this.setState({ end: e.target.value })}
+            onKeyDown={this.keyPress}
+            onChange={e => {
+              console.log("e", e);
+              this.setState({ end: e.target.value });
+            }}
           />
           <hr />
           <p>{tripData.end}</p>
@@ -66,6 +77,7 @@ export default class CurrentRoutePanel extends Component {
           <hr />
           <p>{tripData.distance}</p>
         </div>
+        {this.props.children}
       </div>
     );
   }

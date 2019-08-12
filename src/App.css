@@ -38,7 +38,7 @@ h3,
   left: 1em;
   z-index: 1;
   width: 20em;
-  height: 27em;
+  height: 90vh;
   padding: 1em;
   border-radius: 1em;
   position: absolute;
@@ -47,14 +47,9 @@ h3,
 }
 
 .points-of-interest-container {
-  left: 1em;
-  z-index: 1;
-  bottom: 1em;
-  width: 20em;
   height: 15em;
   padding: 1em;
   border-radius: 1em;
-  position: absolute;
   border: 1px solid white;
   background-color: rgba(20, 20, 20, 0.8);
 }
