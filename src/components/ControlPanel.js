@@ -93,7 +93,7 @@ export default class ControlPanel extends PureComponent {
             Major Cities <i className="fas fa-city" />
           </h3>
           <p>
-            Click to learn more <i className="fas fa-chalkboard" />
+            Learn more <i className="fas fa-chalkboard" />
           </p>
           <hr />
           {CITIES.filter(city => city.country === "Vietnam").map(

@@ -3,6 +3,7 @@ import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import ControlPanel from "./components/ControlPanel";
+import InfoPanel from "./components/InfoPanel";
 import ProvinceCallout from "./components/ProvinceCallout";
 import CurrentRoutePanel from "./components/CurrentRoutePanel";
 import CurrentRouteMarkers from "./components/CurrentRouteMarkers";
@@ -248,6 +249,7 @@ export default function App() {
           />
         </CurrentRoutePanel>
         <CurrentRouteMarkers routeCount={routeCount} route={route} />
+        <InfoPanel isVisible={false} />
       </ReactMapGL>
     </>
   );
