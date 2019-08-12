@@ -90,10 +90,11 @@ export default class ControlPanel extends PureComponent {
       <div className="points-of-interest-container">
         <Container>
           <h3 className="header">
-            Major Cities <i className="fas fa-city" />
+            <i className="fas fa-city margin-left" /> Major Cities
           </h3>
-          <p>
-            Learn more <i className="fas fa-chalkboard" />
+          <p onClick={this.props.toggle}>
+            <i className="fas fa-chalkboard margin-left" />{" "}
+            <span className="link">Learn more</span>
           </p>
           <hr />
           {CITIES.filter(city => city.country === "Vietnam").map(

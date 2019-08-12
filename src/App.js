@@ -17,12 +17,13 @@ const apiKey = `key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
 
 export default function App() {
   const map = useRef(null);
-  const [hoveringProvince, setHoveringProvince] = useState(false);
-  const [routeCount, setRouteCount] = useState(0);
-  const [start, setStart] = useState({});
   const [end, setEnd] = useState({});
-  const [currentRouteData, setCurrentRouteData] = useState({});
+  const [toggledInfoPanel, setToggledInfoPanel] = useState(false);
   const [route, setRoute] = useState({});
+  const [start, setStart] = useState({});
+  const [routeCount, setRouteCount] = useState(0);
+  const [currentRouteData, setCurrentRouteData] = useState({});
+  const [hoveringProvince, setHoveringProvince] = useState(false);
 
   useInterval(() => setRouteCount(routeCount + 1), 1000);
 
@@ -220,7 +221,6 @@ export default function App() {
   };
 
   const clearRouteData = () => {
-    console.log("clearRouteData");
     setCurrentRouteData({});
     setRoute({});
   };
@@ -246,10 +246,14 @@ export default function App() {
           <ControlPanel
             onViewportChange={_goToViewport}
             currentRouteData={currentRouteData}
+            toggle={() => setToggledInfoPanel(!toggledInfoPanel)}
           />
         </CurrentRoutePanel>
         <CurrentRouteMarkers routeCount={routeCount} route={route} />
-        <InfoPanel isVisible={false} />
+        <InfoPanel
+          isVisible={toggledInfoPanel}
+          toggle={() => setToggledInfoPanel(!toggledInfoPanel)}
+        />
       </ReactMapGL>
     </>
   );

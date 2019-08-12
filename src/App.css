@@ -4,6 +4,7 @@ https://coolors.co/4392f1-ffffff-006494-262626-dc493a */
 p,
 h5,
 h3,
+h1,
 .input,
 .header {
   color: white;
@@ -125,8 +126,11 @@ input::placeholder {
   bottom: 2em;
   width: 500px;
   height: 200px;
+  display: flex;
   position: absolute;
+  align-items: center;
   border-radius: 0.5em;
+  justify-content: center;
   background-color: rgba(20, 20, 20, 0.8);
 }
 
@@ -146,4 +150,13 @@ input::placeholder {
 .example-leave.example-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+.link {
+  text-decoration: underline;
+  color: rgba(26, 194, 245, 0.8);
+}
+
+.margin-right {
+  margin-right: 1em;
 }
