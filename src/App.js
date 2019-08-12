@@ -218,6 +218,12 @@ export default function App() {
     getDirections(startLocation, endLocation);
   };
 
+  const clearRouteData = () => {
+    console.log("clearRouteData");
+    setCurrentRouteData({});
+    setRoute({});
+  };
+
   const isHovering = hoveringProvince && hoveringProvince.mouseLat;
   return (
     <>
@@ -234,6 +240,7 @@ export default function App() {
         <CurrentRoutePanel
           onSearchRoute={onSearchRoute}
           currentRouteData={currentRouteData}
+          clearRoute={clearRouteData}
         >
           <ControlPanel
             onViewportChange={_goToViewport}

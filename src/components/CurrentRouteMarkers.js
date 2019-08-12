@@ -16,11 +16,11 @@ export default class CurrentRouteMarkers extends Component {
         return [point[1], point[0]];
       });
     }
-    const finalRoute = route || defaultRoute;
+    const finalRoute = route || [];
     return (
       <div>
         {finalRoute.map((point, idx) => {
-          // if (!(this.props.routeCount * 3 > idx)) return;
+          if (!(this.props.routeCount * 3 > idx)) return;
           return (
             <Marker latitude={point[1]} longitude={point[0]}>
               <button

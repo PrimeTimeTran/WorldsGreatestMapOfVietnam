@@ -1,6 +1,4 @@
-import React, { Component, useState } from "react";
-
-import { tripData } from "../data";
+import React, { Component } from "react";
 
 export default class CurrentRoutePanel extends Component {
   state = {
@@ -44,7 +42,7 @@ export default class CurrentRoutePanel extends Component {
             }}
           />
           <hr />
-          <p>{start_address || tripData.start}</p>
+          <p>{start_address}</p>
         </div>
         <div className="card-field">
           <h5>
@@ -60,28 +58,33 @@ export default class CurrentRoutePanel extends Component {
             }}
           />
           <hr />
-          <p>{end_address || tripData.end}</p>
+          <p>{end_address}</p>
+          <div className="button-container">
+            <button
+              className="search-button"
+              onClick={() =>
+                this.props.onSearchRoute(this.state.start, this.state.end)
+              }
+            >
+              Search
+            </button>
+            <button onClick={() => this.props.clearRoute()}>Clear</button>
+          </div>
         </div>
-        <button
-          onClick={() =>
-            this.props.onSearchRoute(this.state.start, this.state.end)
-          }
-        >
-          Search
-        </button>
+
         <div className="card-field">
           <h5>
             Time <i className="fa fa-clock-o" />
           </h5>
           <hr />
-          <p>{duration.text || tripData.time}</p>
+          <p>{duration.text}</p>
         </div>
         <div className="card-field">
           <h5>
             Distance <i className="fa fa-location-arrow" />
           </h5>
           <hr />
-          <p>{distance.text || tripData.distance}</p>
+          <p>{distance.text}</p>
         </div>
         {this.props.children}
       </div>
