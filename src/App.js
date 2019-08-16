@@ -38,14 +38,11 @@ export default function App() {
   const setupApp = () => {
     const newMap = map.current.getMap();
     newMap.on("load", () => {
-      // All Provinces
       newMap.addSource("provinces", {
         type: "geojson",
         data: provinces
       });
 
-      // The feature-state dependent fill-opacity expression will render the hover effect
-      // when a feature's hover state is set to true.
       newMap.addLayer({
         id: "province-fills",
         type: "fill",
@@ -72,7 +69,6 @@ export default function App() {
         }
       });
 
-      // Route to destination
       newMap.addLayer({
         id: "route",
         type: "line",
@@ -95,27 +91,6 @@ export default function App() {
           "line-width": 4
         }
       });
-
-      // Example of red box to test adding GEOJSON file
-      // newMap.addSource("slsls", {
-      //   type: "geojson",
-      //   data: dummyData
-      // });
-
-      // newMap.addLayer({
-      //   id: "provdwqwd",
-      //   type: "fill",
-      //   source: "slsls",
-      //   paint: {
-      //     "fill-color": "red",
-      //     "fill-opacity": [
-      //       "case",
-      //       ["boolean", ["feature-state", "hover"], false],
-      //       1,
-      //       0.5
-      //     ]
-      //   }
-      // });
     });
   };
 
@@ -240,9 +215,9 @@ export default function App() {
         {isHovering && <ProvinceCallout hoveringProvince={hoveringProvince} />}
 
         <CurrentRoutePanel
+          clearRoute={clearRouteData}
           onSearchRoute={onSearchRoute}
           currentRouteData={currentRouteData}
-          clearRoute={clearRouteData}
         >
           <ControlPanel
             onViewportChange={_goToViewport}
