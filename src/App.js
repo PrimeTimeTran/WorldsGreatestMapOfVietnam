@@ -10,7 +10,7 @@ import CurrentRouteMarkers from "./components/CurrentRouteMarkers";
 
 import "./App.css";
 
-import { route, provinces, dummyData } from "./data";
+import { provinces } from "./data";
 import { useInterval } from "./utils";
 
 const apiKey = `key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
@@ -226,6 +226,7 @@ export default function App() {
   };
 
   const isHovering = hoveringProvince && hoveringProvince.mouseLat;
+
   return (
     <>
       <ReactMapGL
